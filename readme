@@ -1,0 +1,147 @@
+# School Management API - Setup Guide
+
+## Set up PHPMyAdmin
+
+To set up **phpMyAdmin** on your local machine and manage MySQL databases:
+
+1. **Download and Install**:
+
+   - Download and install **XAMPP** from [here](https://www.apachefriends.org/index.html).
+   - Start **Apache** and **MySQL** from the XAMPP control panel.
+
+2. **Configure Database**:
+
+   - After installation, open **phpMyAdmin** in your web browser (`http://localhost/phpmyadmin`).
+   - Create a new database named `school_management`.
+
+3. **Create the Database**:
+
+   - Open **phpMyAdmin**.
+   - In the left sidebar, click **Databases** and create a new database called `school_management`.
+   - Inside the `school_management` database, create a table called `schools` with the following fields:
+     - `id` (INT, Primary Key, AUTO_INCREMENT)
+     - `name` (VARCHAR)
+     - `address` (VARCHAR)
+     - `latitude` (FLOAT)
+     - `longitude` (FLOAT)
+
+4. **Insert Data into the `schools` Table**:
+   - Use SQL queries to add sample data:
+   ```sql
+   INSERT INTO schools (name, address, latitude, longitude) VALUES
+   ('School A', '123 Main St', 12.9718, 77.5944),
+   ('School B', '456 Oak St', 12.9721, 77.5941),
+   ('School C', '789 Pine Rd', 12.9700, 77.5960);
+   ```
+
+<!-- Set up the Project
+Clone the Repository:
+
+Clone the repository:
+bash
+Copy code
+git clone https://github.com/sanyuktakulkarni8/school-management-api.git
+cd school-management-api
+Install Dependencies:
+
+Install the required dependencies:
+bash
+Copy code
+npm install
+Configure Environment Variables:
+
+Create a .env file in the project root and add the following environment variables for the database connection:
+env
+Copy code
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=your_password_here  # Keep blank for localhost
+DB_NAME=school_management
+Run the Server:
+
+Start the Node.js server:
+bash
+Copy code
+node app.js
+The API should now be running on http://localhost:3000. -->
+
+
+1. Testing the Add School API
+Endpoint: POST /addSchool
+Description: Adds a new school to the database.
+
+Request Format:
+
+Method: POST
+URL: http://localhost:3000/addSchool
+Body (raw JSON):
+json
+Copy code
+{
+  "name": "New School",
+  "address": "123 School St",
+  "latitude": 12.9718,
+  "longitude": 77.5944
+}
+Steps:
+
+Open Postman.
+Select POST as the request type.
+Enter the URL: http://localhost:3000/addSchool.
+In the Body section, choose raw and set the format to JSON. Paste the above JSON structure with your desired values.
+Click Send.
+Expected Response:
+
+json
+Copy code
+{
+  "message": "School added successfully!",
+  "schoolId": 1
+}
+
+
+2. Testing the List Schools API
+Endpoint: GET /listSchools
+Description: Fetches a list of schools sorted by proximity to the user's location.
+
+Request Format:
+
+Method: GET
+URL: http://localhost:3000/listSchools?latitude=12.9718&longitude=77.5944
+Steps:
+
+Open Postman.
+Select GET as the request type.
+Enter the URL: http://localhost:3000/listSchools?latitude=12.9718&longitude=77.5944 (replace latitude and longitude with the desired coordinates).
+Click Send.
+Expected Response:
+
+json
+Copy code
+{
+  "schools": [
+    {
+      "id": 1,
+      "name": "New School",
+      "address": "123 School St",
+      "latitude": 12.9718,
+      "longitude": 77.5944,
+      "distance": 0
+    },
+    {
+      "id": 2,
+      "name": "School A",
+      "address": "456 Oak St",
+      "latitude": 12.9721,
+      "longitude": 77.5941,
+      "distance": 100
+    }
+  ]
+}
+
+
+
+
+
+
